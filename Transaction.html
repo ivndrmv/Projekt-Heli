@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body> 
+    <header class="top-header">
+        <div class="logo-konteiner">
+            <img src="static/icons/Heli-logo.png" alt="Heli logo" >
+            <span class="brandi-nimi">Heli</span>
+        </div>
+
+        <nav class="main-navigatsioon">
+            <a href="/Overview" class="navigatsioon">Overview</a>
+            <a href="/Transactions" class="navigatsioon-aktiivne">Transactions</a>
+            <a href="/Stocks" class="navigatsioon">Stocks</a>
+            <a href="/Accounts" class="navigatsioon">Accounts</a>
+        </nav>
+    </header>
+    <main>
+        <a href="/Overview" class="back-link">← Back to Overview</a>
+        <h1>Add transaction</h1>
+
+        <form action="/add_transaction" method="POST">
+
+            <div class="form-group">
+                <label>Type</label>
+                <input type="radio" name="type" value="spending" checked> Spending
+                <input type="radio" name="type" value="spending"> Income
+            </div>
+
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" name="amount" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" name="description" required>
+            </div>
+            <div class="form-buttons">
+                <a href="/Overview" class="cancel-btn">Cancel</a>
+                <button type="submit" class="save-btn">Save transaction</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
