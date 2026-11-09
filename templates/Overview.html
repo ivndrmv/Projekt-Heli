@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heli - Overview</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
 </head>
 <body> 
     <header class="top-header">
         <div class="logo-konteiner">
-            <img src="static/icons/Heli-logo.png" alt="Heli logo" >
+            <img src="{{ url_for('static', filename='icons/Heli-logo.png') }}" alt="Heli logo">
             <span class="brandi-nimi">Heli</span>
         </div>
 
@@ -24,25 +24,27 @@
         <div class="header-row">
             <h1>Overview</h1>
             <p class="subtitle">A clear view of your money, in and out.</p>
-            <a href="/add-transaction" class="add-btn">+ Add transaction</a>
+            <a href="/add_transactions" class="add-btn">+ Add transaction</a>
         </div>
 
         <div class="cards-container">
             <div class="card">
                 <p>Total balance</p>
-                <h2>$12,480.00</h2>
+                <h2>${{ "%.2f"|format(total_balance) }}</h2>
             </div>
             <div class="card">
                 <p>Income</p>
-                <h2 class="green-text">$6,200.00</h2>
+                <h2 class="green-text">${{ "%.2f"|format(total_income) }}</h2>
             </div>
             <div>
                 <p>Spending</p>
-                <h2 class="yellow-text">$3,840.00</h2>
+                <h2 class="yellow-text">${{ "%.2f"|format(total_spending) }}</h2>
             </div>
             <div>
                 <p>Net income</p>
-                <h2 class="black-text">+$2,360.00</h2>
+                <h2 class="black-text">
+                    {% if net_income >= 0 %}+{% endif %}${{ "%.2f"|format(net_income) }}
+                </h2>
             </div>
         </div>
 
@@ -55,20 +57,20 @@
                 <th>Date</th>
                 <th>Amount</th>
             </tr>
+            {% for t in transactions %}
             <tr>
-                <td>Whole Foods Market</td>
-                <td>Groceries</td>
-                <td>Checking</td>
-                <td>Oct 28,2026</td>
-                <td class="red-text">-$86.42</td>
+                <td>{{ t.description }}</td>
+                <td>{{ t.category }}</td>
+                <td>{{ t.account }}</td>
+                <td>{{ t.date }}</td>
+                
+                {% if t.type == "spending" %}
+                    <td class="red-text">-${{ t.amount }}</td>
+                {% else %}
+                    <td class="green-text">+${{ t.amount }}</td>
+                {% endif %}
             </tr>
-            <tr>
-                <td>Design project</td>
-                <td>Freelance</td>
-                <td>Checking</td>
-                <td>Oct 27, 2026</td>
-                <td class="green-text">+$1,000.00</td>
-            </tr>
+            {% endfor %}
         </table>
     </main>
 </body>

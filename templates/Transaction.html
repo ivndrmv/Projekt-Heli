@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transactions</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='overview.css') }}">
 </head>
 <body> 
     <header class="top-header">
         <div class="logo-konteiner">
-            <img src="static/icons/Heli-logo.png" alt="Heli logo" >
+            <img src="{{ url_for('static', filename='icons/Heli-logo.png') }}" alt="Heli logo">
             <span class="brandi-nimi">Heli</span>
         </div>
 
@@ -24,12 +24,12 @@
         <a href="/Overview" class="back-link">← Back to Overview</a>
         <h1>Add transaction</h1>
 
-        <form action="/add_transaction" method="POST">
+        <form action="/add_transactions" method="POST">
 
             <div class="form-group">
                 <label>Type</label>
                 <input type="radio" name="type" value="spending" checked> Spending
-                <input type="radio" name="type" value="spending"> Income
+                <input type="radio" name="type" value="income"> Income
             </div>
 
             <div class="form-group">
@@ -41,10 +41,23 @@
                 <label>Date</label>
                 <input type="date" name="date" required>
             </div>
+
             <div class="form-group">
                 <label>Description</label>
                 <input type="text" name="description" required>
             </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" name="category" required>
+            </div>
+
+            <div class="form-group">
+                <label>Account</label>
+                <input type="radio" name="account" value="Сhecking" required> Checking
+                <input type="radio" name="account" value="Сredit card" required>Credit card
+            </div>
+
             <div class="form-buttons">
                 <a href="/Overview" class="cancel-btn">Cancel</a>
                 <button type="submit" class="save-btn">Save transaction</button>
